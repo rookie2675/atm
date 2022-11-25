@@ -2,23 +2,27 @@
 {
     public class Account
     {
+        private decimal _balance;
+
         public Holder Holder { get; init; }
 
         public required Card Card { get; init; }
 
-        public required decimal Balance { get; set; }
+        public required decimal Balance 
+        { 
+            get { return _balance; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException();
+
+                _balance = value;
+            } 
+        }
 
         public Account() 
         {
             Holder = new Holder();
-            Balance = RandomizeBalance();
-        }
-
-        private static decimal RandomizeBalance()
-        {
-            int max = 100;
-
-            return Utilities.GetRandomInt(max) + Utilities.GetRandomDecimal();
         }
 
         public void MakeDeposit(decimal amount) => Balance += amount;

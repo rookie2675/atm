@@ -8,7 +8,7 @@
 
         internal static void Show()
         {
-            Utilities.ShowGreenMessage($"{_projectName} - {_projectType}: {_projectVersion}");
+            Utilities.ShowGreenMessage($"{_projectName} - {_projectType}: Version {_projectVersion}");
             Console.WriteLine();
         }
     }
