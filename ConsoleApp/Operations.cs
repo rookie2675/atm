@@ -10,7 +10,18 @@ namespace ConsoleApp
             Console.Write("Please select the amount that you wish to deposit: ");
             decimal amount = GetAmount();
 
-            account?.MakeDeposit(amount);
+            if (account is not null)
+                try
+                {
+                    account.MakeDeposit(amount);
+                }
+                catch (Exception exception)
+                {
+                    Console.Clear();
+                    ProjectInformation.Show();
+                    Console.WriteLine();
+                    Utilities.ShowRedMessage(exception.Message);
+                }
 
             Console.WriteLine();
             Console.WriteLine();
@@ -21,10 +32,9 @@ namespace ConsoleApp
 
         internal static void MakeWithdrawal(Account account)
         {
-            Console.WriteLine("Please select the amount that you wish to withdraw: ");
+            ShowPossibleAmounts();
+            Console.Write("Please select the amount that you wish to withdraw: ");
             decimal amount = GetAmount();
-            Console.Clear();
-            ProjectInformation.Show();
 
             if (account is not null)
                 try
@@ -39,6 +49,8 @@ namespace ConsoleApp
                     Utilities.ShowRedMessage(exception.Message);
                 }
 
+            Console.WriteLine();
+            Console.WriteLine();
             Console.Write("You successfuly withdrew ");
             Utilities.ShowGreenMessage(string.Format("{0:C}", amount));
             Utilities.ShowPressAnyKeyToContinueMessage();
