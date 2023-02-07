@@ -1,4 +1,4 @@
-﻿using Library.Data;
+﻿using Library.Services;
 using Library.Models;
 
 namespace ConsoleApp
@@ -10,8 +10,6 @@ namespace ConsoleApp
 
         internal static void Run(out Account? account)
         {
-            bool isAuthSuccessfull;
-
             do
             {
                 do
@@ -19,15 +17,15 @@ namespace ConsoleApp
                     RequestDetails();
                 } while (string.IsNullOrEmpty(_cardNumber) || string.IsNullOrEmpty(_cardPin));
 
-                Validations.ValidateCard(_cardNumber, _cardPin, out isAuthSuccessfull, out account);
+                account = new CardValidation(_cardNumber, _cardPin).AuthenticatedAccount;
 
-                if (isAuthSuccessfull == true && account is not null)
+                if (account is not null)
                     GreetUser(account.Holder.GetName());
 
-                else if (isAuthSuccessfull || account is null)
+                else if (account is null)
                     ShowAuthFailedMessage();
 
-            } while (isAuthSuccessfull != true && account is not null);
+            } while (account is null);
         }
 
         private static void RequestDetails()
