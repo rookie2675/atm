@@ -17,7 +17,7 @@ namespace ConsoleApp
                 Authentication.Run(out Account? account);
 
                 if (account is not null)
-                    Menu.Initialize(account);
+                    new Menu(account).Run();
             } while (true);
         }
     }
