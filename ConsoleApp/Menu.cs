@@ -2,18 +2,19 @@
 
 namespace ConsoleApp
 {
-    internal static class Menu
+    internal class Menu
     {
-        private static Account? _account;
-        private static bool _running;
+        private Account? _account;
+        private bool _running;
 
-        internal static void Initialize(Account account)
+        public Menu(Account? account)
         {
-            if (account is not null)
-                _account = account;
-
+            _account = account is null ? throw new ArgumentNullException(nameof(account)) : account;
             _running = true;
+        }
 
+        internal void Run()
+        {
             do
             {
                 ProjectInformation.Show();
@@ -23,7 +24,7 @@ namespace ConsoleApp
             } while (_running);
         }
 
-        private static void ShowBalance()
+        private void ShowBalance()
         {
             if (_account is not null)
             {
@@ -32,7 +33,7 @@ namespace ConsoleApp
             }
         }
 
-        private static void ShowOptions()
+        private void ShowOptions()
         {
             Console.WriteLine("1) Deposit");
             Console.WriteLine("2) Withdraw");
@@ -40,7 +41,7 @@ namespace ConsoleApp
             Console.Write("Please choose one of the options above: ");
         }
 
-        private static void ChooseOption()
+        private void ChooseOption()
         {
             ConsoleKeyInfo userInput = Console.ReadKey(true);
             Console.Clear();
