@@ -1,5 +1,4 @@
 ﻿using Library.Data;
-using Library.Models;
 using System.Globalization;
 
 namespace ConsoleApp
@@ -14,10 +13,10 @@ namespace ConsoleApp
 
             do
             {
-                Authentication.Run(out Account? account);
-
-                if (account is not null)
-                    new Menu(account).Run();
+                Authentication authentication;
+                do { authentication = new(); }
+                while (authentication.AuthenticatedAccount is null);
+                new Menu(authentication.AuthenticatedAccount).Run();
             } while (true);
         }
     }
