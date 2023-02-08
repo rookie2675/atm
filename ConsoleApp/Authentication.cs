@@ -5,30 +5,27 @@ namespace ConsoleApp
 {
     internal class Authentication
     {
-        private static string? _cardNumber;
-        private static string? _cardPin;
+        internal Account? AuthenticatedAccount { get; init; }
+        private string? _cardNumber;
+        private string? _cardPin;
 
-        internal static void Run(out Account? account)
+        public Authentication() 
         {
             do
             {
-                do
-                {
-                    RequestDetails();
-                } while (string.IsNullOrEmpty(_cardNumber) || string.IsNullOrEmpty(_cardPin));
+                RequestDetails();
+            } while (string.IsNullOrEmpty(_cardNumber) || string.IsNullOrEmpty(_cardPin));
 
-                account = new CardValidation(_cardNumber, _cardPin).AuthenticatedAccount;
+            AuthenticatedAccount = new CardValidation(_cardNumber, _cardPin).AuthenticatedAccount;
 
-                if (account is not null)
-                    GreetUser(account.Holder.GetName());
+            if (AuthenticatedAccount is not null)
+                GreetUser(AuthenticatedAccount.Holder.GetName());
 
-                else if (account is null)
-                    ShowAuthFailedMessage();
-
-            } while (account is null);
+            else if (AuthenticatedAccount is null)
+                ShowAuthFailedMessage();
         }
 
-        private static void RequestDetails()
+        private void RequestDetails()
         {
             ProjectInformation.Show();
             Console.Write("Please insert your card number: ");
