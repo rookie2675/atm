@@ -16,10 +16,10 @@ namespace Library.Models
         {
             int enumLenght;
 
-            enumLenght = Enum.GetNames(typeof(Genders)).Length;
+            enumLenght = Enum.GetNames<Genders>().Length;
             Gender = (Genders)Utilities.GetRandomInt(enumLenght);
 
-            enumLenght = Enum.GetNames(typeof(MaritalStatuses)).Length;
+            enumLenght = Enum.GetNames<MaritalStatuses>().Length;
             MaritalStatus = (MaritalStatuses)Utilities.GetRandomInt(enumLenght);
 
             Name = new(Gender);

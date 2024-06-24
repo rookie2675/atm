@@ -13,9 +13,7 @@
             get { return _balance; }
             set
             {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException();
-
+                ArgumentOutOfRangeException.ThrowIfNegative(value);
                 _balance = value;
             } 
         }

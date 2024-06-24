@@ -2,16 +2,10 @@
 
 namespace ConsoleApp
 {
-    internal class Menu
+    internal class Menu(Account? account)
     {
-        private Account? _account;
-        private bool _running;
-
-        public Menu(Account? account)
-        {
-            _account = account is null ? throw new ArgumentNullException(nameof(account)) : account;
-            _running = true;
-        }
+        private readonly Account? _account = account is null ? throw new ArgumentNullException(nameof(account)) : account;
+        private bool _running = true;
 
         internal void Run()
         {
@@ -33,7 +27,7 @@ namespace ConsoleApp
             }
         }
 
-        private void ShowOptions()
+        private static void ShowOptions()
         {
             Console.WriteLine("1) Deposit");
             Console.WriteLine("2) Withdraw");

@@ -4,9 +4,9 @@ namespace Library.Data
 {
     public static class Database
     {
-        private static readonly List<Account> _accounts = new();
+        private static readonly List<Account> _accounts = [];
 
-        private static readonly List<Card> _cards = new();
+        private static readonly List<Card> _cards = [];
 
         public static List<Card> Cards => GetCards();
 
@@ -23,7 +23,7 @@ namespace Library.Data
 
         private static List<Card> GetCards()
         {
-            List<Card> copy = new();
+            List<Card> copy = [];
             foreach (Card card in _cards)
             {
                 Card temp = new() { Number = card.Number, Pin = card.Pin };
@@ -43,7 +43,7 @@ namespace Library.Data
 
         private static List<Account> GetAccounts()
         {
-            List<Account> copy = new();
+            List<Account> copy = [];
             foreach (Account account in _accounts)
             {
                 Account temp = new() { Holder = account.Holder, Card = account.Card, Balance = account.Balance };
