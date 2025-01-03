@@ -8,9 +8,9 @@ namespace Library.Models
 
         public Genders Gender { get; init; }
 
-        private Honorifics Honorific { get; init; }
-
         private MaritalStatuses MaritalStatus { get; init; }
+
+        private Honorifics Honorific => GetHonorific(Gender, MaritalStatus);
 
         public Holder()
         {
@@ -23,18 +23,21 @@ namespace Library.Models
             MaritalStatus = (MaritalStatuses)Utilities.GetRandomInt(enumLenght);
 
             Name = new(Gender);
-            Honorific = SetHonorific(Gender, MaritalStatus);
         }
 
         public string GetName() => $"{Honorific}. {Name.FirstName} {Name.LastName}";
 
-        private static Honorifics SetHonorific(Genders gender, MaritalStatuses maritalStatus)
+        private static Honorifics GetHonorific(Genders gender, MaritalStatuses maritalStatus)
         {
             if (gender == Genders.Female && maritalStatus != MaritalStatuses.Married)
+            {
                 return Honorifics.Ms;
+            }
 
             else if (gender == Genders.Female && maritalStatus == MaritalStatuses.Married)
+            {
                 return Honorifics.Mrs;
+            }
 
             return Honorifics.Mr;
         }
