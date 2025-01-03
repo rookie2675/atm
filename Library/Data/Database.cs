@@ -8,9 +8,9 @@ namespace Library.Data
 
         private static readonly List<Card> _cards = [];
 
-        public static List<Card> Cards => GetCards();
+        public static IEnumerable<Card> Cards => GetCards();
 
-        public static List<Account> Accounts => GetAccounts();
+        public static IEnumerable<Account> Accounts => GetAccounts();
 
         private static void FillCardsList()
         {
@@ -21,35 +21,23 @@ namespace Library.Data
             _cards.Add(new Card { Number = "6455125898", Pin = "8789" });
         }
 
-        private static List<Card> GetCards()
-        {
-            List<Card> copy = [];
-            foreach (Card card in _cards)
-            {
-                Card temp = new() { Number = card.Number, Pin = card.Pin };
-                copy.Add(temp);
-            }
-            return copy;
-        }
-
         private static void FillAccountsList()
         {
-            _accounts.Add(new Account() { Card = _cards[0], Balance = 250_000M });
-            _accounts.Add(new Account() { Card = _cards[1], Balance = 500_000M });
-            _accounts.Add(new Account() { Card = _cards[2], Balance = 750_000M });
+            _accounts.Add(new Account() { Card = _cards[0], Balance = 250_000M   });
+            _accounts.Add(new Account() { Card = _cards[1], Balance = 500_000M   });
+            _accounts.Add(new Account() { Card = _cards[2], Balance = 750_000M   });
             _accounts.Add(new Account() { Card = _cards[3], Balance = 1_000_000M });
-            _accounts.Add(new Account() { Card = _cards[4], Balance = 2_500_000 });
+            _accounts.Add(new Account() { Card = _cards[4], Balance = 2_500_000  });
         }
 
-        private static List<Account> GetAccounts()
+        private static IEnumerable<Card> GetCards()
         {
-            List<Account> copy = [];
-            foreach (Account account in _accounts)
-            {
-                Account temp = new() { Holder = account.Holder, Card = account.Card, Balance = account.Balance };
-                copy.Add(temp);
-            }
-            return copy;
+            return [.. _cards];
+        }
+
+        private static IEnumerable<Account> GetAccounts()
+        {
+            return [.. _accounts];
         }
 
         public static void FeedData()
